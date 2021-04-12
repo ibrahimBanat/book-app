@@ -19,22 +19,14 @@ app.set('view engine', 'ejs');
 const PORT = process.env.PORT || 5000;
 
 // Root route
-app.get('/', (req, res) => {
-  res.send('i am working ');
-});
-app.get('/all', allhandler);
+app.get('/hello', proofOfLifeHandler);
 
 function listening() {
   console.log('app is running');
   console.log(`app is listen at http://localhost:${PORT}`);
 }
-// function rootRouteHandler(req, res) {
-//   res.render('pages/index');
-//   console.log('i am working');
-// }
-
-function allhandler(req, res) {
-  res.send('heloooooooooooo');
+function proofOfLifeHandler(req, res) {
+  res.render('pages/index');
 }
 
 app.listen(PORT, listening);
