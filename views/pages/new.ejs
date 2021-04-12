@@ -4,14 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="block-all-mixed-content"
+    />
     <title>Document</title>
   </head>
   <body>
-    <form action="/searches/new" method="POST">
-      <input type="text" placeholder="Search for a book.." />
-      <input type="radio" name="title" id="title" />
+    <form action="/searches" method="POST">
+      <input type="text" placeholder="Search for a book.." name="query" />
+      <input type="radio" name="type" id="title" value="title" />
       <label for="title">Title</label>
-      <input type="radio" name="author" id="author" />
+      <input type="radio" name="type" id="author" value="author" />
       <label for="title">Author</label>
       <button>Search</button>
     </form>

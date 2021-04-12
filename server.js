@@ -8,6 +8,9 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
+//Require Superagent with HTTP requests
+const superagent = require('superagent');
+
 // Cors for cross origin allowance
 app.use(cors());
 
@@ -17,13 +20,16 @@ app.set('view engine', 'ejs');
 
 // Server Setup
 const PORT = process.env.PORT || 5000;
+app.use(express.urlencoded({ extended: true }));
 
 //Root Route
 app.get('/', rootRouteHndler);
 // proof of life route
 app.get('/hello', proofOfLifeHandler);
-// search route
+// search new book route
 app.get('/searches/new', searchRouteHndler);
+// search functionality route
+app.post('/searches', formRouteHandler);
 
 function listening() {
   console.log('app is running');
@@ -37,6 +43,32 @@ function proofOfLifeHandler(req, res) {
 }
 function searchRouteHndler(req, res) {
   res.render('pages/new');
+}
+function formRouteHandler(req, res) {
+  let query = req.body.query;
+  let type = req.body.type;
+  console.log(type, query);
+  let terms = type === 'title' ? 'intitle' : 'inauthor';
+  let URL = `https://www.googleapis.com/books/v1/volumes?q=${query}+${terms}&maxResults=10`;
+  superagent.get(URL).then(booksData => {
+    let books = booksData.body.items.map(item => new Book(item));
+    res.render('pages/searches/show', { bookArray: books });
+  });
+}
+
+function Book(booksData) {
+  this.img = booksData.volumeInfo.imageLinks.thumbnail
+    ? booksData.volumeInfo.imageLinks.thumbnail
+    : 'https://i.imgur.com/J5LVHEL.jpg';
+  this.title = booksData.volumeInfo.title
+    ? booksData.volumeInfo.title
+    : 'Dummy Title';
+  this.author = booksData.volumeInfo.authors
+    ? booksData.volumeInfo.authors[0]
+    : 'Dummy Author';
+  this.desc = booksData.volumeInfo.description
+    ? booksData.volumeInfo.description
+    : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique laboriosam optio sunt eius. Expedita commodi iure, quasi enim labore vitae corrupti dolore vel voluptas, deleniti in, ipsum sint illum voluptate.';
 }
 
 app.listen(PORT, listening);
