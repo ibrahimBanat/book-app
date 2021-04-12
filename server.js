@@ -30,6 +30,8 @@ app.get('/hello', proofOfLifeHandler);
 app.get('/searches/new', searchRouteHndler);
 // search functionality route
 app.post('/searches', formRouteHandler);
+// error route handler
+app.get('*', erroRouteHandler);
 
 function listening() {
   console.log('app is running');
@@ -50,10 +52,13 @@ function formRouteHandler(req, res) {
   console.log(type, query);
   let terms = type === 'title' ? 'intitle' : 'inauthor';
   let URL = `https://www.googleapis.com/books/v1/volumes?q=${query}+${terms}&maxResults=10`;
-  superagent.get(URL).then(booksData => {
-    let books = booksData.body.items.map(item => new Book(item));
-    res.render('pages/searches/show', { bookArray: books });
-  });
+  superagent
+    .get(URL)
+    .then(booksData => {
+      let books = booksData.body.items.map(item => new Book(item));
+      res.render('pages/searches/show', { bookArray: books });
+    })
+    .catch(err => res.render('pages/error'));
 }
 
 function Book(booksData) {
@@ -69,6 +74,9 @@ function Book(booksData) {
   this.desc = booksData.volumeInfo.description
     ? booksData.volumeInfo.description
     : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique laboriosam optio sunt eius. Expedita commodi iure, quasi enim labore vitae corrupti dolore vel voluptas, deleniti in, ipsum sint illum voluptate.';
+}
+function erroRouteHandler(req, res) {
+  res.render('pages/error');
 }
 
 app.listen(PORT, listening);
