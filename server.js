@@ -8,6 +8,10 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
+// require postegrues
+const pg = require('pg');
+const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
+
 //Require Superagent with HTTP requests
 const superagent = require('superagent');
 
@@ -79,4 +83,6 @@ function erroRouteHandler(req, res) {
   res.render('pages/error');
 }
 
-app.listen(PORT, listening);
+client.connect().then(() => {
+  app.listen(PORT, listening);
+});
