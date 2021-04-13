@@ -42,7 +42,14 @@ function listening() {
   console.log(`app is listen at http://localhost:${PORT}`);
 }
 function rootRouteHndler(req, res) {
-  res.render('pages/index');
+  let SQL = 'SELECT * FROM books';
+  client.query(SQL).then(data => {
+    console.log(data.rows);
+    res.render('pages/index', {
+      booksData: data.rows,
+      length: data.rows.slice(-1)[0].id,
+    });
+  });
 }
 function proofOfLifeHandler(req, res) {
   res.render('pages/proof');

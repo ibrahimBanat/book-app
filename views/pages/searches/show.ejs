@@ -8,15 +8,8 @@
   </head>
   <body>
     <div>
-      <% bookArray.forEach(element => { %>
-
-      <div>
-        <img src="<%= element.img %>" alt="<%= element.img %>" />
-        <h2><%= element.title %></h2>
-        <h4><%= element.author %></h4>
-        <p><%= element.desc %></p>
-      </div>
-      <% }); %>
+      <% bookArray.forEach(element => { %> <%- include('../layout/book',
+      {elementD: element}) %> <% }); %>
     </div>
   </body>
 </html>

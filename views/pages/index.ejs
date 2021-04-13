@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="styles/base.css" />
   </head>
   <body class="home">
+    <h2>books currently stored: <%- length %></h2>
     <a href="/searches/new">Search</a>
+    <% booksData.forEach(element => { %> <%- include('./layout/book', {elementD:
+    element}) %> <% }) %>
     <img src="assets/book.png" alt="" />
   </body>
 </html>
