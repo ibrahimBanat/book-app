@@ -34,6 +34,11 @@ app.get('/hello', proofOfLifeHandler);
 app.get('/searches/new', searchRouteHndler);
 // search functionality route
 app.post('/searches', formRouteHandler);
+
+// details route handler
+app.get('/books/:id', detailsRouteHandler);
+//back router handler
+app.get('/back', backRouteHandler);
 // error route handler
 app.get('*', erroRouteHandler);
 
@@ -85,6 +90,16 @@ function Book(booksData) {
   this.desc = booksData.volumeInfo.description
     ? booksData.volumeInfo.description
     : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique laboriosam optio sunt eius. Expedita commodi iure, quasi enim labore vitae corrupti dolore vel voluptas, deleniti in, ipsum sint illum voluptate.';
+}
+function detailsRouteHandler(req, res) {
+  let SQL = `SELECT * FROM book WHERE id=$1;`;
+  let safeValues = [req.params];
+  client.query(SQL, safeValues).then(item => {
+    res.render('/pages/book/show', { dbData: item[0] });
+  });
+}
+function backRouteHandler(req, res) {
+  res.redirect('back');
 }
 function erroRouteHandler(req, res) {
   res.render('pages/error');

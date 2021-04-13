@@ -11,7 +11,8 @@
     <h2>books currently stored: <%- length %></h2>
     <a href="/searches/new">Search</a>
     <% booksData.forEach(element => { %> <%- include('./layout/book', {elementD:
-    element}) %> <% }) %>
-    <img src="assets/book.png" alt="" />
+    element}) %>
+    <a href="/books/<%=element.id  %>">View Details</a>
+    <% }) %>
   </body>
 </html>
