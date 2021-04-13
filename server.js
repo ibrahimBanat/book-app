@@ -50,19 +50,19 @@ function formRouteHandler(req, res) {
   let query = req.body.query;
   let type = req.body.type;
   console.log(type, query);
-  let terms = type === 'title' ? 'intitle' : 'inauthor';
-  let URL = `https://www.googleapis.com/books/v1/volumes?q=${query}+${terms}&maxResults=10`;
+
+  let URL = `https://www.googleapis.com/books/v1/volumes?q=+${type}:${query}&maxResults=10`;
   superagent
     .get(URL)
     .then(booksData => {
       let books = booksData.body.items.map(item => new Book(item));
       res.render('pages/searches/show', { bookArray: books });
     })
-    .catch(err => res.render('pages/error'));
+    .catch(err => console.log(err));
 }
 
 function Book(booksData) {
-  this.img = booksData.volumeInfo.imageLinks.thumbnail
+  this.img = booksData.volumeInfo.imageLinks
     ? booksData.volumeInfo.imageLinks.thumbnail
     : 'https://i.imgur.com/J5LVHEL.jpg';
   this.title = booksData.volumeInfo.title
