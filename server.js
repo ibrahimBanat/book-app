@@ -8,6 +8,10 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
+// require postegrues
+const pg = require('pg');
+const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
+
 //Require Superagent with HTTP requests
 const superagent = require('superagent');
 
@@ -30,6 +34,13 @@ app.get('/hello', proofOfLifeHandler);
 app.get('/searches/new', searchRouteHndler);
 // search functionality route
 app.post('/searches', formRouteHandler);
+// books route handler
+app.post('/books', bookRouteHandler);
+// details route handler
+app.get('/books/:id', detailsRouteHandler);
+//back router handler
+app.get('/back', backRouteHandler);
+
 // error route handler
 app.get('*', erroRouteHandler);
 
@@ -38,7 +49,14 @@ function listening() {
   console.log(`app is listen at http://localhost:${PORT}`);
 }
 function rootRouteHndler(req, res) {
-  res.render('pages/index');
+  let SQL = 'SELECT * FROM books';
+  client.query(SQL).then(data => {
+    console.log(data.rows);
+    res.render('pages/index', {
+      booksData: data.rows,
+      length: data.rows.slice(-1)[0].id,
+    });
+  });
 }
 function proofOfLifeHandler(req, res) {
   res.render('pages/proof');
@@ -74,9 +92,35 @@ function Book(booksData) {
   this.desc = booksData.volumeInfo.description
     ? booksData.volumeInfo.description
     : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique laboriosam optio sunt eius. Expedita commodi iure, quasi enim labore vitae corrupti dolore vel voluptas, deleniti in, ipsum sint illum voluptate.';
+  this.isbn = booksData.volumeInfo.industryIdentifiers
+    ? booksData.volumeInfo.industryIdentifiers.identifier
+    : 'NaN';
 }
+function detailsRouteHandler(req, res) {
+  let SQL = `SELECT * FROM books WHERE id=$1;`;
+
+  let safeValues = [req.params.id];
+  client.query(SQL, safeValues).then(item => {
+    console.log(item.rows[0]);
+    res.render('pages/book/show', { dbData: item.rows[0] });
+  });
+}
+function backRouteHandler(req, res) {
+  res.redirect('back');
+}
+function bookRouteHandler(req, res) {
+  let { author, title, isbn, image_url, description } = req.body;
+  let SQL = `INSERT INTO books (author, title, isbn, image_url, description) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+  let safeValues = [author, title, isbn, image_url, description];
+  client.query(SQL, safeValues).then(item => {
+    res.redirect(`/books/${item.rows[0].id}`);
+  });
+}
+
 function erroRouteHandler(req, res) {
   res.render('pages/error');
 }
 
-app.listen(PORT, listening);
+client.connect().then(() => {
+  app.listen(PORT, listening);
+});

@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+
+a,
+a:visited,
+a:active {
+  color: var(--sec);
+  text-decoration: none;
+}
+h2 > span {
+  color: var(--prim);
+}
+header nav .logo,
+ul {
+  color: var(--sec);
+}
+.no {
+  color: var(--prim);
+}
+.hero {
+  background: linear-gradient(270.4deg, #fce7f6 0.53%, #e3eaf8 99.84%);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  line-height: 91.43px;
+  color: var(--her-text);
+}
+.hero p {
+  font-size: 22px;
+}
+#explore {
+  filter: drop-shadow(7px 12px 20px rgba(0, 0, 0, 0.051));
+  color: var(--prim);
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+.grid-ctr {
+  background: #f1f3fe;
+}
+
+.line-book1 {
+  animation: line-book1-tick 2s infinite;
+  stroke-dasharray: 110;
+  stroke-dashoffset: 110;
+}
+@keyframes line-book1-tick {
+  20% {
+    stroke-dashoffset: 110;
+  }
+  60% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .line-book1 {
+    animation: none;
+  }
+}
+
+.card {
+  border-radius: 50px;
+  background: #fff;
+}
+.card h2 {
+  color: var(--her-text);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+}
+.card-bottom h4 {
+  color: silver;
+}
+.card-bottom a {
+  color: var(--her-text);
+}
+.card-bottom a {
+  background: white;
+  filter: drop-shadow(7px 12px 20px rgba(0, 0, 0, 0.051));
+}

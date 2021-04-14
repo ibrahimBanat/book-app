@@ -7,13 +7,6 @@
     <title>Document</title>
   </head>
   <body>
-    <div>
-      <% bookArray.forEach(element => { %>
-      <div>
-        <%- include('../layout/book', {elementD: element}) %> <%-
-        include('../layout/dbForm', {elementD: element}) %>
-      </div>
-      <% }); %>
-    </div>
+    <%- include('description', {bookData: dbData}) %>
   </body>
 </html>

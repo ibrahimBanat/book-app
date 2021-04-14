@@ -1,0 +1,95 @@
+#explore:hover,
+#explore a :hover {
+  filter: drop-shadow(8px 10px 20px rgba(0, 0, 0, 0.2));
+  color: var(--prim) !important;
+}
+a,
+a:visited,
+a:active {
+  color: var(--sec);
+  text-decoration: none;
+}
+.line-book1 {
+  animation: line-book1-tick 2s infinite;
+  stroke-dasharray: 110;
+  stroke-dashoffset: 110;
+}
+@keyframes line-book1-tick {
+  20% {
+    stroke-dashoffset: 110;
+  }
+  60% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .line-book1 {
+    animation: none;
+  }
+}
+.ec10 {
+  animation: rot 5s linear 0s infinite forwards reverse;
+  transition: ease 0.5s all;
+}
+@keyframes rot {
+  from {
+    transform: rotate(0deg) translate(-1em) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translate(-1em) rotate(-360deg);
+  }
+}
+.hero h2 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: 10px var(--her-text); /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: 0.15em; /* Adjust as needed */
+  animation: typing 2s steps(40, end), blink-caret 0.3s step-end infinite;
+}
+.hero p {
+  animation: 4s ease fadeup;
+  transition: all ease 1s;
+}
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--her-text);
+  }
+}
+@keyframes fadeup {
+  0% {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(30%);
+  }
+  98%,
+  100% {
+    transform: translate(0%);
+    opacity: 1;
+  }
+}
+
+.card-bottom a:hover {
+  filter: drop-shadow(8px 10px 20px rgba(0, 0, 0, 0.2));
+}
