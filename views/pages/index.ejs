@@ -23,12 +23,12 @@
         <p>
           I belive something very magical can happen when you read a good book.
         </p>
-        <button id="explore"><a href="#shelf">EXPLORE ></a></button>
+        <a id="explore" href="/searches/new">Search ></a>
       </div>
 
       <div id="shelf" class="grid-ctr">
         <% booksData.forEach(element => { %> <%- include('./layout/book',
-        {elementD: element}) %> <% }) %>
+        {elementD: element, token: false}) %> <% }) %>
       </div>
     </main>
     <script

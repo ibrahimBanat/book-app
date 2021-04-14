@@ -1,7 +1,7 @@
-#explore:hover,
-#explore a :hover {
+#explore:hover {
   filter: drop-shadow(8px 10px 20px rgba(0, 0, 0, 0.2));
   color: var(--prim) !important;
+  transition: all ease 0.8s;
 }
 a,
 a:visited,
@@ -90,6 +90,17 @@ a:active {
   }
 }
 
+.card-bottom a {
+  transition: 0.7s ease;
+}
 .card-bottom a:hover {
   filter: drop-shadow(8px 10px 20px rgba(0, 0, 0, 0.2));
+  border: none;
+}
+.card:hover {
+  filter: drop-shadow(8px 10px 20px rgba(0, 0, 0, 0.2));
+}
+.card {
+  border: 1px solid silver;
+  transition: all 1.5s;
 }

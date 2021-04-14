@@ -28,7 +28,7 @@ ul {
 }
 #explore {
   filter: drop-shadow(7px 12px 20px rgba(0, 0, 0, 0.051));
-  color: var(--prim);
+  color: var(--her-text) !important;
   background-color: #fff;
   border: 1px solid #fff;
 }
@@ -77,4 +77,5 @@ ul {
 .card-bottom a {
   background: white;
   filter: drop-shadow(7px 12px 20px rgba(0, 0, 0, 0.051));
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }

@@ -1,9 +1,11 @@
 <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-center">
-  <img src="<%= elementD.img %>" alt="<%= elementD.title %>" />
+  <img src="<%= elementD.image_url %>" alt="<%= elementD.title %>" />
   <div class="card-bottom">
     <h2><%= elementD.title %></h2>
     <h4><%= elementD.author %></h4>
 
+    <% if(!token){ %>
     <a href="/books/<%=elementD.id  %>" class="view">Details</a>
+    <% } %>
   </div>
 </div>

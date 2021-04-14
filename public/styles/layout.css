@@ -41,11 +41,12 @@ ul {
   max-width: 340px;
   height: 500px;
   border-radius: 16px;
+  position: relative;
 }
 .card img {
   /* http://books.google.com/books/content?id=cYGoDm9k8PQC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api */
   width: 100%;
-  height: 75%;
+  height: 60%;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
@@ -67,4 +68,6 @@ ul {
   align-self: center;
   text-transform: uppercase;
   text-align: center;
+  position: absolute;
+  bottom: 5%;
 }
