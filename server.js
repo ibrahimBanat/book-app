@@ -7,6 +7,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
 
 // require postegrues
 const pg = require('pg');
@@ -36,6 +38,8 @@ app.get('/searches/new', searchRouteHndler);
 app.post('/searches', formRouteHandler);
 // books route handler
 app.post('/books', bookRouteHandler);
+// update deatails route handler
+app.put('/updateBook/:id', updateBookHndler);
 // details route handler
 app.get('/books/:id', detailsRouteHandler);
 //back router handler
@@ -109,12 +113,20 @@ function backRouteHandler(req, res) {
   res.redirect('/');
 }
 function bookRouteHandler(req, res) {
-  console.log('aaaaaaaa', req.body.image_url);
   let { author, title, isbn, image_url, description } = req.body;
   let SQL = `INSERT INTO books (author, title, isbn, image_url, description) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
   let safeValues = [author, title, isbn, image_url, description];
   client.query(SQL, safeValues).then(item => {
     res.redirect(`/books/${item.rows[0].id}`);
+  });
+}
+function updateBookHndler(req, res) {
+  let { author, title, isbn, image_url, description } = req.body;
+  let id = req.params.id;
+  let SQL = `UPDATE books SET author=$1, title=$2, isbn=$3, image_url=$4, description=$5 WHERE id=$6`;
+  let safeValues = [author, title, isbn, image_url, description, id];
+  client.query(SQL, safeValues).then(() => {
+    res.redirect(`/books/${id}`);
   });
 }
 
