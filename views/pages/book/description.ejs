@@ -5,5 +5,6 @@
     <h4><%= bookData.author %></h4>
     <p><%= bookData.description %></p>
   </div>
-  <a href="/back">Back</a>
+  <button id="updatebtn">Update</button>
+  <%- include('../layout/edit', {bookData: bookData}) %>
 </section>
