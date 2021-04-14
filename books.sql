@@ -8,4 +8,4 @@ CREATE TABLE books (
     description TEXT
 );
 
-INSERT INTO books (author, title, isbn, image_url, description) VALUES('author', 'title', 'isbn', 'image_url', 'description')
+INSERT INTO books (author, title, isbn, image_url, description) VALUES ('Ibrahim', 'Maher', 'Ibrahim', 'Banat', '1997');

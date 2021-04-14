@@ -10,7 +10,7 @@
     <div>
       <% bookArray.forEach(element => { %>
       <div>
-        <%- include('../layout/book', {elementD: element}) %> <%-
+        <%- include('../layout/book', {elementD: element, token: true}) %> <%-
         include('../layout/dbForm', {elementD: element}) %>
       </div>
       <% }); %>

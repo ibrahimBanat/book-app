@@ -80,7 +80,7 @@ function formRouteHandler(req, res) {
 }
 
 function Book(booksData) {
-  this.img = booksData.volumeInfo.imageLinks
+  this.image_url = booksData.volumeInfo.imageLinks
     ? booksData.volumeInfo.imageLinks.thumbnail
     : 'https://i.imgur.com/J5LVHEL.jpg';
   this.title = booksData.volumeInfo.title
@@ -101,14 +101,15 @@ function detailsRouteHandler(req, res) {
 
   let safeValues = [req.params.id];
   client.query(SQL, safeValues).then(item => {
-    console.log(item.rows[0]);
+    console.log('returned from db', item.rows[0]);
     res.render('pages/book/show', { dbData: item.rows[0] });
   });
 }
 function backRouteHandler(req, res) {
-  res.redirect('back');
+  res.redirect('/');
 }
 function bookRouteHandler(req, res) {
+  console.log('aaaaaaaa', req.body.image_url);
   let { author, title, isbn, image_url, description } = req.body;
   let SQL = `INSERT INTO books (author, title, isbn, image_url, description) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
   let safeValues = [author, title, isbn, image_url, description];
