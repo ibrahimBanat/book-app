@@ -14,6 +14,10 @@
   <textarea id="description" type="text" name="description">
 <%=
   bookData.description %>"</textarea
+  cols="10" rows="5"
   >
-  <button id="save">Save</button>
+  <button id="save">Save Updates</button>
+</form>
+<form action="/bookDelete/<%= bookData.id %>?_method=delete" method="POST">
+  <button>Delete book</button>
 </form>

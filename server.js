@@ -44,6 +44,8 @@ app.put('/updateBook/:id', updateBookHndler);
 app.get('/books/:id', detailsRouteHandler);
 //back router handler
 app.get('/back', backRouteHandler);
+// delete book route handler
+app.delete('/bookDelete/:id', bookDeleteHandler);
 
 // error route handler
 app.get('*', erroRouteHandler);
@@ -58,7 +60,7 @@ function rootRouteHndler(req, res) {
     console.log(data.rows);
     res.render('pages/index', {
       booksData: data.rows,
-      length: data.rows.slice(-1)[0].id,
+      length: data.rowCount,
     });
   });
 }
@@ -127,6 +129,14 @@ function updateBookHndler(req, res) {
   let safeValues = [author, title, isbn, image_url, description, id];
   client.query(SQL, safeValues).then(() => {
     res.redirect(`/books/${id}`);
+  });
+}
+
+function bookDeleteHandler(req, res) {
+  let SQL = `DELETE FROM books where id=$1`;
+  let safeValues = [req.params.id];
+  client.query(SQL, safeValues).then(() => {
+    res.redirect('/');
   });
 }
 
