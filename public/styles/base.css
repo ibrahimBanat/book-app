@@ -1,8 +1,13 @@
-h1 {
-  color: blue;
+* {
+  box-sizing: border-box;
 }
-.home {
-  background-image: url('../assets/p.jpg');
-  background-repeat: no-repeat;
-  background-size: 100%;
+html {
+  scroll-behavior: smooth;
+}
+:root {
+  --prim: #ff0073;
+  --sec: #333;
+  --her-text: #333;
+  --num-cards: 3;
+  --cards-margin: 32px;
 }

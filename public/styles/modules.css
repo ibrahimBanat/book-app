@@ -1,0 +1,27 @@
+.hero h2 {
+  padding-top: 110px;
+  font-size: 48px;
+  letter-spacing: 1.5px;
+}
+#explore {
+  width: 150px;
+  height: 40px;
+  border-radius: 25px;
+  margin-top: 100px;
+  outline: none;
+  cursor: pointer;
+}
+#explore a {
+  width: 100%;
+  height: 100%;
+}
+.ec10 {
+  position: absolute;
+  right: 5%;
+  top: 20%;
+}
+.ec8 {
+  position: absolute;
+  left: 20%;
+  bottom: 20%;
+}
