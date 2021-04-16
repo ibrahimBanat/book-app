@@ -7,6 +7,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
 
 // require postegrues
 const pg = require('pg');
@@ -36,10 +38,14 @@ app.get('/searches/new', searchRouteHndler);
 app.post('/searches', formRouteHandler);
 // books route handler
 app.post('/books', bookRouteHandler);
+// update deatails route handler
+app.put('/updateBook/:id', updateBookHndler);
 // details route handler
 app.get('/books/:id', detailsRouteHandler);
 //back router handler
 app.get('/back', backRouteHandler);
+// delete book route handler
+app.delete('/bookDelete/:id', bookDeleteHandler);
 
 // error route handler
 app.get('*', erroRouteHandler);
@@ -54,7 +60,7 @@ function rootRouteHndler(req, res) {
     console.log(data.rows);
     res.render('pages/index', {
       booksData: data.rows,
-      length: data.rows.slice(-1)[0].id,
+      length: data.rowCount,
     });
   });
 }
@@ -109,12 +115,28 @@ function backRouteHandler(req, res) {
   res.redirect('/');
 }
 function bookRouteHandler(req, res) {
-  console.log('aaaaaaaa', req.body.image_url);
   let { author, title, isbn, image_url, description } = req.body;
   let SQL = `INSERT INTO books (author, title, isbn, image_url, description) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
   let safeValues = [author, title, isbn, image_url, description];
   client.query(SQL, safeValues).then(item => {
     res.redirect(`/books/${item.rows[0].id}`);
+  });
+}
+function updateBookHndler(req, res) {
+  let { author, title, isbn, image_url, description } = req.body;
+  let id = req.params.id;
+  let SQL = `UPDATE books SET author=$1, title=$2, isbn=$3, image_url=$4, description=$5 WHERE id=$6`;
+  let safeValues = [author, title, isbn, image_url, description, id];
+  client.query(SQL, safeValues).then(() => {
+    res.redirect(`/books/${id}`);
+  });
+}
+
+function bookDeleteHandler(req, res) {
+  let SQL = `DELETE FROM books where id=$1`;
+  let safeValues = [req.params.id];
+  client.query(SQL, safeValues).then(() => {
+    res.redirect('/');
   });
 }
 

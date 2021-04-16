@@ -8,11 +8,13 @@
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="#shelf">Shelf</a></li>
+      <% if(flag){ %>
       <li>
         <i class="far fa-bookmark">
           (<span class="no"><%- length -1 %></span>)
         </i>
       </li>
+      <% } %>
     </ul>
   </nav>
 </header>

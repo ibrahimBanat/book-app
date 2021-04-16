@@ -8,9 +8,17 @@
       http-equiv="Content-Security-Policy"
       content="block-all-mixed-content"
     />
+    <link rel="stylesheet" href="styles/reset.css" />
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/layout.css" />
+    <link rel="stylesheet" href="styles/modules.css" />
+    <link rel="stylesheet" href="styles/theme.css" />
+    <link rel="stylesheet" href="styles/state.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <title>Document</title>
   </head>
   <body>
+    <%- include('./layout/header', {flag: false }) %>
     <form action="/searches" method="POST">
       <input type="text" placeholder="Search for a book.." name="query" />
       <input type="radio" name="type" id="title" value="intitle" />

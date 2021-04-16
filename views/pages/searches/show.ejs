@@ -5,13 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="styles/reset.css" />
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/layout.css" />
+    <link rel="stylesheet" href="styles/modules.css" />
+    <link rel="stylesheet" href="styles/theme.css" />
+    <link rel="stylesheet" href="styles/state.css" />
   </head>
   <body>
-    <div>
+    <%- include('../layout/header', {flag:false}) %>
+    <h2 class="top10">Top 10 Books</h2>
+    <div class="grid-ctr">
       <% bookArray.forEach(element => { %>
       <div>
-        <%- include('../layout/book', {elementD: element, token: true}) %> <%-
-        include('../layout/dbForm', {elementD: element}) %>
+        <%- include('../layout/book', {elementD: element, token: true}) %>
       </div>
       <% }); %>
     </div>

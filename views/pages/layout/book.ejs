@@ -6,6 +6,7 @@
 
     <% if(!token){ %>
     <a href="/books/<%=elementD.id  %>" class="view">Details</a>
-    <% } %>
+    <% }else { %> <%- include('../layout/dbForm', {elementD: elementD}) %> <%}
+    %>
   </div>
 </div>
